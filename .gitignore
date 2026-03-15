@@ -1,0 +1,47 @@
+# -------------------------
+# Python
+# -------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+
+# Virtual environments
+venv/
+.env/
+.venv/
+env/
+ENV/
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+
+# -------------------------
+# Project-specific ignores
+# -------------------------
+
+# Raw and master CSV files
+data/raw/**/*.csv
+data/master/**/*.csv
+
+# Logs
+logs/
+*.log
+
+# Local environment variables
+*.env
+
+# Selenium downloads (if any)
+downloads/
+*.crdownload
+*.part
+
+# macOS system files
+.DS_Store
+
+# Jupyter notebooks checkpoints (if you ever add notebooks)
+.ipynb_checkpoints/
