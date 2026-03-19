@@ -35,6 +35,9 @@ RAW_WEIGHT_CSV_PATH = RAW_GOOGLE_SHEETS_FOLDER / "raw_weight.csv"
 GOOGLE_SHEETS_CALORIES_ID: str = os.getenv("GOOGLE_SHEETS_CALORIES_ID")
 GOOGLE_SHEETS_WEIGHT_ID: str = os.getenv("GOOGLE_SHEETS_WEIGHT_ID")
 
+GOOGLE_SHEETS_WEIGHT_GID: str = os.getenv("GOOGLE_SHEETS_WEIGHT_GID")
+GOOGLE_SHEETS_CALORIES_GID: str = os.getenv("GOOGLE_SHEETS_CALORIES_GID")
+
 LOGIN_URL: str = "https://hevy.com/login"
 EXPORT_URL: str = "https://hevy.com/settings?export"
 

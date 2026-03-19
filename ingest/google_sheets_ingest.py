@@ -10,32 +10,34 @@ from pathlib import Path
 from config import (
     GOOGLE_SHEETS_CALORIES_ID, 
     GOOGLE_SHEETS_WEIGHT_ID,
-    RAW_GOOGLE_SHEETS_FOLDER,
-    MASTER_GOOGLE_SHEETS_FOLDER
+    RAW_CALORIES_CSV_PATH,
+    RAW_WEIGHT_CSV_PATH,
+    GOOGLE_SHEETS_WEIGHT_GID,
+    GOOGLE_SHEETS_CALORIES_GID
     )
 import logging
 
 logger = logging.getLogger(__name__)
     
     
-def download_google_sheet(sheet_id: str, output_path: Path) -> None:
+def download_google_sheet(sheet_id: str, gid: str, output_path: Path) -> None:
     """
     Download a Google Sheet as CSV and save it to the given path.
 
     Args:
         sheet_id (str): Google Sheet ID.
+        gid (str): Google Sheet gid
         output_path (Path): Where to save the CSV file.
     """
-    url: str = f"https://docs.google.com/forms/d/{sheet_id}/edit"
+    url: str = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}"
     
     
-    if __name__ == "__main__":
-        response = requests.get(url)
-        if response.status_code != 200:
-            raise RuntimeError(
-                f"Failed to download Google Sheet {sheet_id}. "
-                f"Status code: {response.status_code}"
-            )
+    response = requests.get(url)
+    if response.status_code != 200:
+        raise RuntimeError(
+            f"Failed to download Google Sheet {sheet_id}. "
+            f"Status code: {response.status_code}"
+        )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(response.content)
     
@@ -46,8 +48,8 @@ def main():
     """Main entry point for ingesting Google Sheets data."""
     logger.info("[INGEST] Starting Google Sheets ingestion...")
     
-    download_google_sheet(GOOGLE_SHEETS_CALORIES_ID, RAW_GOOGLE_SHEETS_FOLDER)
-        
+    download_google_sheet(GOOGLE_SHEETS_CALORIES_ID,GOOGLE_SHEETS_CALORIES_GID, RAW_CALORIES_CSV_PATH)
+    download_google_sheet(GOOGLE_SHEETS_WEIGHT_ID, GOOGLE_SHEETS_WEIGHT_GID, RAW_WEIGHT_CSV_PATH)
     logger.info("[INGEST] Google Sheets ingestion completed.")
 
 if __name__ == "__main__":
