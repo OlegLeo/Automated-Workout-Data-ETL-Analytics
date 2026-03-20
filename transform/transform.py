@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from pathlib import Path
 import logging
 
@@ -95,11 +96,20 @@ def add_uid(df) -> pd.DataFrame:
 
 def add_volume(df) -> pd.DataFrame:
     """
-    Create a volume column:
-        Formula for calculation of volume per set: volume = weight_kg * reps
+    Add a volume column:
+      - If weight is missing or zero → volume = reps
+      - Otherwise → volume = weight * reps
+      - Round to 2 decimals
     """
-    df["volume"] = (df["weight_kg"].fillna(0) * df["reps"].fillna(0)
-    )
+    
+    weight = df["weight_kg"].fillna(0)
+    reps = df["reps"].fillna(0)
+    
+    df["volume"] = np.where(weight == 0, reps, weight * reps)
+    
+    # Round to 2 decimals
+    df["volume"] = df["volume"].round(2)
+    
     return df
 
 
