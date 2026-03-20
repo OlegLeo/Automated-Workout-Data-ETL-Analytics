@@ -99,6 +99,10 @@ workout_analysis_project/
 │   ├── transform.py
 │   └── __init__.py
 │
+├── ingest/
+│   ├── google_sheets_ingest.py
+│   └── __init__.py
+│
 ├── utils/
 │   └── file_utils.py
 │
@@ -131,16 +135,18 @@ workout_analysis_project/
     `python3 -m transform.transform` OR `make transform data`
 
 6. Run pipeline hevy scraper + transform
+    `python3 -m ingest.google_sheets_ingest` OR `make ingest_data`
+
+7. Run pipeline hevy scraper + transform
     `python3 -m main` OR `make run`
 
-7. Clean local python cache
+8. Clean local python cache
     `make clean`
 
 --- 
 
 ## 🧭 Future Enhancements
 
-- Add calorie + bodyweight ingestion  
 - Add PR detection  
 - Add weekly/monthly summaries  
 - Add Power BI dashboard  
