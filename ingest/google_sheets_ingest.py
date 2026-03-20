@@ -44,7 +44,7 @@ def download_google_sheet(sheet_id: str, gid: str, output_path: Path) -> None:
     logger.info(f"[INGEST] Saved Google Sheet to {output_path}")
     
 
-def main():
+def run():
     """Main entry point for ingesting Google Sheets data."""
     logger.info("[INGEST] Starting Google Sheets ingestion...")
     
@@ -53,4 +53,4 @@ def main():
     logger.info("[INGEST] Google Sheets ingestion completed.")
 
 if __name__ == "__main__":
-    main()
+    run()
