@@ -57,6 +57,12 @@ Located in `hevy_scraper/`
 - Saves it into `data/raw/`  
 - Renames the file with a timestamp  
 
+### **Automated Ingest Google Sheets**
+Located in `ingest/`  
+- Ingests Google Sheets data 
+- Downloads the latest daily calories/protein and body weight data
+- Saves it into `data/raw/`   
+
 ### **Transform Pipeline**
 Located in `transform/`  
 - Cleans raw data  
