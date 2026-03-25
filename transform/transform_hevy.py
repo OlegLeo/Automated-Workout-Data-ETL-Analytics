@@ -7,7 +7,7 @@ from config import RAW_HEVY_CSV_PATH_RENAMED, MASTER_HEVY_CSV_PATH
 
 logger = logging.getLogger(__name__)
 
-def select_master_columns(df: pd.DataFrame) -> pd.DataFrame:
+def select_master_hevy_columns(df: pd.DataFrame) -> pd.DataFrame:
     final_columns = [
         "uid",
         "title",
@@ -27,7 +27,7 @@ def load_raw_hevy_data() -> pd.DataFrame:
     Load the raw Hevy CSV and inspect its structure.
     Also converts start_time to a proper datetime object.
     """
-    logger.info(f"File Exists: {Path(RAW_HEVY_CSV_PATH_RENAMED).exists()}")
+    logger.info(f"Hevy Raw CSV file exists: {Path(RAW_HEVY_CSV_PATH_RENAMED).exists()}")
 
     # Read the raw workouts.csv  
     df = pd.read_csv(RAW_HEVY_CSV_PATH_RENAMED)
@@ -133,7 +133,7 @@ def run() -> None:
     df = add_volume(df)
     
     # Keep only the columns we want in the master file
-    df = select_master_columns(df)
+    df = select_master_hevy_columns(df)
     
     # Load Hevy master data 
     master_df = load_master_data(MASTER_HEVY_CSV_PATH)

@@ -60,7 +60,7 @@ Located in `hevy_scraper/`
 ### **Automated Ingest Google Sheets**
 Located in `ingest/`  
 - Ingests Google Sheets data 
-- Downloads the latest daily calories/protein and body weight data
+- Downloads the latest daily nutrition (calories/protein) and body weight data
 - Saves it into `data/raw/`   
 
 ### **Transform Pipeline**
@@ -151,11 +151,36 @@ workout_analysis_project/
 
 --- 
 
+## Data Analysis
+
+- Trend of Body Weight:
+    Analyse the direction of bodyweight over time. The idea is to group date weekly and in the line chart analyse the progress avarage over time.
+- Maintenance calories =
+the average calories you eat during weeks where your weight trend is flat.
+
+- Calculate your surplus target (how much to eat to gain weight)
+
+- Track weekly training volume
+
+    “Do I gain weight faster when I eat more?”
+
+    “Do I gain weight faster when volume is higher?”
+
+    “Do I need more calories on high-volume weeks?”
+
+- Consistency metrics 
+    - Mark red the weeks when the goals was not achieved for workout days
+    : +0.25 to +0.75 kg per week 
+    “Am I gaining at the right speed?”
+    
+- Weekly weight change (main KPI)
+
 ## 🧭 Future Enhancements
 
 - Add PR detection  
 - Add weekly/monthly summaries  
 - Add Power BI dashboard  
 - Add predictive trend analysis  
+
 
 

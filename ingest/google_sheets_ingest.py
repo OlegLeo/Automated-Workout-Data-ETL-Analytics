@@ -1,5 +1,5 @@
 """
-Ingest Google Sheets data (calories, weight) into raw CSV files.
+Ingest Google Sheets data (nutrition, weight) into raw CSV files.
 
 This script downloads Google Sheets as CSV using the public export endpoint.
 Sheets must be shared as "Anyone with the link can view".
@@ -8,12 +8,12 @@ Sheets must be shared as "Anyone with the link can view".
 import requests
 from pathlib import Path
 from config import (
-    GOOGLE_SHEETS_CALORIES_ID, 
+    GOOGLE_SHEETS_NUTRITION_ID, 
     GOOGLE_SHEETS_WEIGHT_ID,
-    RAW_CALORIES_CSV_PATH,
+    RAW_NUTRITION_CSV_PATH,
     RAW_WEIGHT_CSV_PATH,
     GOOGLE_SHEETS_WEIGHT_GID,
-    GOOGLE_SHEETS_CALORIES_GID
+    GOOGLE_SHEETS_NUTRITION_GID
     )
 import logging
 
@@ -48,7 +48,7 @@ def run():
     """Main entry point for ingesting Google Sheets data."""
     logger.info("[INGEST] Starting Google Sheets ingestion...")
     
-    download_google_sheet(GOOGLE_SHEETS_CALORIES_ID,GOOGLE_SHEETS_CALORIES_GID, RAW_CALORIES_CSV_PATH)
+    download_google_sheet(GOOGLE_SHEETS_NUTRITION_ID,GOOGLE_SHEETS_NUTRITION_GID, RAW_NUTRITION_CSV_PATH)
     download_google_sheet(GOOGLE_SHEETS_WEIGHT_ID, GOOGLE_SHEETS_WEIGHT_GID, RAW_WEIGHT_CSV_PATH)
     logger.info("[INGEST] Google Sheets ingestion completed.")
 

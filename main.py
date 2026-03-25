@@ -1,5 +1,5 @@
 from hevy_scraper.main import run as run_scraper
-from transform.transform import run as run_transform
+from transform.transform_hevy import run as run_transform
 from ingest.google_sheets_ingest import run as run_google_sheets
 import logging
 
