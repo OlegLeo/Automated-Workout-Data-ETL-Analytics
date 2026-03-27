@@ -52,15 +52,14 @@ def load_raw_hevy_data() -> pd.DataFrame:
     return df
 
 
-def load_master_data(path: Path) -> pd.DataFrame:
+def load_master_hevy_data(path: Path) -> pd.DataFrame:
     if path.exists():
         df = pd.read_csv(path)
         logger.info(f"Loaded Hevy master file with {len(df)} rows.")
         return df
     else:
-        logger.info("Hevy master file does not exist yet. Creating one...")
+        logger.info("Hevy master csv file does not exist yet. Creating one...")
         return pd.DataFrame()
-    
 
 def append_only_new_rows(master_df: pd.DataFrame, new_df: pd.DataFrame) -> pd.DataFrame:
     if master_df.empty:
@@ -78,7 +77,6 @@ def save_master_data(df: pd.DataFrame, path: Path):
     df.to_csv(path, index=False)
     logger.info(f"Master file saved with {len(df)} total rows.")
     
-
 
 def add_uid(df) -> pd.DataFrame:
     """
@@ -101,7 +99,6 @@ def add_volume(df) -> pd.DataFrame:
       - Otherwise → volume = weight * reps
       - Round to 2 decimals
     """
-    
     weight = df["weight_kg"].fillna(0)
     reps = df["reps"].fillna(0)
     
@@ -136,7 +133,7 @@ def run() -> None:
     df = select_master_hevy_columns(df)
     
     # Load Hevy master data 
-    master_df = load_master_data(MASTER_HEVY_CSV_PATH)
+    master_df = load_master_hevy_data(MASTER_HEVY_CSV_PATH)
     
     # Append only new rows
     updated_master = append_only_new_rows(master_df, df)
