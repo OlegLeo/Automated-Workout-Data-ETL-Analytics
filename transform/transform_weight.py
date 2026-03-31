@@ -5,7 +5,9 @@ import logging
 from config import RAW_WEIGHT_CSV_PATH, MASTER_WEIGHT_CSV_PATH
 from transform.common import (
     log_file_exists, 
-    load_master_data
+    load_master_data,
+    append_only_new_rows,
+    save_master_data
 )
 
 logger = logging.getLogger(__name__)
@@ -37,8 +39,10 @@ def load_raw_weight_data() -> pd.DataFrame:
     
 
 def run() -> None:
-    load_raw_weight_data()
-    load_master_data(MASTER_WEIGHT_CSV_PATH)
+    df = load_raw_weight_data()
+    master_df = load_master_data(MASTER_WEIGHT_CSV_PATH)
+    master_df = append_only_new_rows(df, master_df, MASTER_WEIGHT_CSV_PATH)
+    df = save_master_data(master_df)
 
 
 if __name__ == "__main__":

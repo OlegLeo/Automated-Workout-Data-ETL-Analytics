@@ -29,9 +29,8 @@ def append_only_new_rows(master_df: pd.DataFrame, new_df: pd.DataFrame, path: Pa
     return pd.concat([master_df, new_unique], ignore_index=True)
 
 
-def save_master_data(df: pd.DataFrame, )
-
-def save_master_data(df: pd.DataFrame, path: Path):
-    path.parent.mkdir(parents=True, exist_ok=True)
+def save_master_data(df: pd.DataFrame, path: Path) -> None:
+    """Store the master data as CSV into a specified path."""
+    path.parent.mkdir(parents=True, exists_ok=True)
     df.to_csv(path, index=False)
-    logger.info(f"Master file saved with {len(df)} total rows.")
+    logger.info(f"Master file saved with {len(df)} total rows. Path: {path}")
