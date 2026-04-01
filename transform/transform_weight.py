@@ -41,8 +41,8 @@ def load_raw_weight_data() -> pd.DataFrame:
 def run() -> None:
     df = load_raw_weight_data()
     master_df = load_master_data(MASTER_WEIGHT_CSV_PATH)
-    master_df = append_only_new_rows(df, master_df, MASTER_WEIGHT_CSV_PATH)
-    df = save_master_data(master_df)
+    updated_master_df = append_only_new_rows(master_df, df, key="date")
+    save_master_data(updated_master_df, MASTER_WEIGHT_CSV_PATH)
 
 
 if __name__ == "__main__":

@@ -16,21 +16,21 @@ def load_master_data(path: Path) -> Path:
         return df
     else:
         logger.info(f"Master csv file does not exist yet. Creating one: {path}")
-        return pd.DataFrame
+        return pd.DataFrame()
     
-def append_only_new_rows(master_df: pd.DataFrame, new_df: pd.DataFrame, path: Path) -> pd.DataFrame:
-    if master_df.empty():
-        logger.info(f"Master data is empty - using all new rows. Path: {path}")
+def append_only_new_rows(master_df: pd.DataFrame, new_df: pd.DataFrame, key) -> pd.DataFrame:
+    if master_df.empty:
+        logger.info(f"Master data is empty - using all new rows.")
         return new_df
 
-    new_unique = new_df[~new_df["date"].isin(master_df["date"])]
-    logger.info(f"Found {len(new_unique)} new rows to append into {path}")
+    new_unique = new_df[~new_df[key].isin(master_df[key])]
+    logger.info(f"Found {len(new_unique)} new rows to append.")
     
     return pd.concat([master_df, new_unique], ignore_index=True)
 
 
 def save_master_data(df: pd.DataFrame, path: Path) -> None:
     """Store the master data as CSV into a specified path."""
-    path.parent.mkdir(parents=True, exists_ok=True)
+    path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False)
     logger.info(f"Master file saved with {len(df)} total rows. Path: {path}")
