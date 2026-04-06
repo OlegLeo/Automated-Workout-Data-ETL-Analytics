@@ -8,6 +8,10 @@ def log_file_exists(path: Path) -> None:
     """Log wheter a file exists."""
     logger.info(f"Raw CSV file exists: {path} -> {path.exists()}")
 
+def select_master_columns(final_columns: tuple, df: pd.DataFrame) -> pd.DataFrame:
+    """Tuple of none mutable columns that will be present in the master data CSV"""
+    return df[final_columns]
+    
 
 def load_master_data(path: Path) -> Path:
     if path.exists():

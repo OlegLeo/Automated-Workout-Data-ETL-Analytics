@@ -1,23 +1,12 @@
 import pandas as pd 
-from pathlib import Path
-import logging
-
 from config import RAW_WEIGHT_CSV_PATH, MASTER_WEIGHT_CSV_PATH
 from transform.common import (
     log_file_exists, 
+    select_master_columns,
     load_master_data,
     append_only_new_rows,
     save_master_data
 )
-
-logger = logging.getLogger(__name__)
-
-def select_master_weight_columns(df: pd.DataFrame) -> pd.DataFrame:
-    final_columns = [
-        "date",
-        "kg"
-    ]
-    return df[final_columns]
 
     
 def load_raw_weight_data() -> pd.DataFrame:
@@ -40,6 +29,7 @@ def load_raw_weight_data() -> pd.DataFrame:
 
 def run() -> None:
     df = load_raw_weight_data()
+    df = select_master_columns(["date", "kg"], df)
     master_df = load_master_data(MASTER_WEIGHT_CSV_PATH)
     updated_master_df = append_only_new_rows(master_df, df, key="date")
     save_master_data(updated_master_df, MASTER_WEIGHT_CSV_PATH)
