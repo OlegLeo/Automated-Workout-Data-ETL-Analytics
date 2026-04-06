@@ -91,18 +91,28 @@ Located in `transform/`
 workout_analysis_project/
 │
 ├── data/
-│   ├── raw/                 # Raw Hevy exports
-│   └── master/              # Cleaned + aggregated dataset
+│   ├── raw/
+│   │   ├── hevy/                 # Raw Hevy exports
+│   │   ├── google_sheets/        # Raw Weight + Nutrition
+│   │   └── README.md
+│   │
+│   └── master/
+│       ├── hevy/                 # Cleaned Hevy dataset
+│       ├── google_sheets/        # Cleaned Weight + Nutrition
+│       └── README.md
 │
 ├── hevy_scraper/
 │   ├── auth.py
 │   ├── browser.py
 │   ├── export.py
-│   ├── main.py
+│   ├── main.py                   # Scraper entrypoint
 │   └── __init__.py
 │
 ├── transform/
-│   ├── transform.py
+│   ├── common.py                 # Shared ETL utilities
+│   ├── transform_hevy.py
+│   ├── transform_weight.py
+│   ├── transform_nutrition.py
 │   └── __init__.py
 │
 ├── ingest/
@@ -110,13 +120,15 @@ workout_analysis_project/
 │   └── __init__.py
 │
 ├── utils/
-│   └── file_utils.py
+│   ├── file_utils.py
+│   └── __init__.py
 │
-├── main.py                  # Orchestrates the full ETL pipeline
-├── config.py                # Paths, settings, constants
-├── Makefile                 # Convenience commands (run, scrape, transform)
+├── main.py                       # Full pipeline orchestrator
+├── config.py                     # Paths, settings, constants
+├── Makefile                      # Commands (scrape, transform, ingest, pipeline)
 ├── .gitignore
 └── README.md
+
 ```
 
 --
@@ -138,7 +150,7 @@ workout_analysis_project/
     `python3 -m hevy_scraper.main` OR `make scrape`
 
 5. Run the transform script script from the root of the project
-    `python3 -m transform.transform` OR `make transform data`
+    `python3 -m transform.transform_{data_source_name}` OR `make transform_data`
 
 6. Run pipeline hevy scraper + transform
     `python3 -m ingest.google_sheets_ingest` OR `make ingest_data`

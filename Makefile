@@ -8,8 +8,6 @@ transform_data:
 	python3 -m transform.transform_nutrition
 ingest_data:
 	python3 -m ingest.google_sheets_ingest
-pipeline: scrape transform_data ingest_data
-	python3 main.py
 install:
 	pip3 install -r requirements.txt
 clean:
