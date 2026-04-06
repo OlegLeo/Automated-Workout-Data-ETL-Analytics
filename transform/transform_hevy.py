@@ -1,82 +1,14 @@
 import pandas as pd
 import numpy as np
-from pathlib import Path
-import logging
-
 from config import RAW_HEVY_CSV_PATH_RENAMED, MASTER_HEVY_CSV_PATH
+from transform.common import (
+    load_raw_hevy_data_and_tranform_date_format,
+    select_master_columns,
+    load_master_data,
+    append_only_new_rows,
+    save_master_data
+)
 
-logger = logging.getLogger(__name__)
-
-def select_master_hevy_columns(df: pd.DataFrame) -> pd.DataFrame:
-    final_columns = [
-        "uid",
-        "title",
-        "start_time",
-        "end_time",
-        "exercise_title",
-        "set_index",
-        "weight_kg",
-        "reps",
-        "volume"
-    ]
-    return df[final_columns]
-
-
-def load_raw_hevy_data() -> pd.DataFrame:
-    """
-    Load the raw Hevy CSV and inspect its structure.
-    Also converts start_time to a proper datetime object.
-    """
-    logger.info(f"Hevy Raw CSV file exists: {Path(RAW_HEVY_CSV_PATH_RENAMED).exists()}")
-
-    # Read the raw workouts.csv  
-    df = pd.read_csv(RAW_HEVY_CSV_PATH_RENAMED)
-    
-    # Transform start_time string -> datetime format
-    df["start_time"] = pd.to_datetime(df["start_time"])
-    
-    # print("DF shape:", df.shape)
-
-    # print("Preview of raw data:")
-    # print(df.head(5))
-
-    # print("\nColumn names:")
-    # print(df.columns)
-
-    # print("\nData types:")
-    # print(df.dtypes)
-
-    # print("\nInfo:")
-    # print(df.info())
-
-    return df
-
-
-def load_master_hevy_data(path: Path) -> pd.DataFrame:
-    if path.exists():
-        df = pd.read_csv(path)
-        logger.info(f"Loaded Hevy master file with {len(df)} rows.")
-        return df
-    else:
-        logger.info("Hevy master csv file does not exist yet. Creating one...")
-        return pd.DataFrame()
-
-def append_only_new_rows(master_df: pd.DataFrame, new_df: pd.DataFrame) -> pd.DataFrame:
-    if master_df.empty:
-        logger.info("Master is empty - using all new rows.")
-        return new_df
-    
-    # Keep only rows whose UID is not in master
-    new_unique = new_df[~new_df["uid"].isin(master_df["uid"])]
-    logger.info(f"Found {len(new_unique)} new rows to append.")
-    
-    return pd.concat([master_df, new_unique], ignore_index=True)
-
-def save_master_data(df: pd.DataFrame, path: Path):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(path, index=False)
-    logger.info(f"Master file saved with {len(df)} total rows.")
-    
 
 def add_uid(df) -> pd.DataFrame:
     """
@@ -111,6 +43,7 @@ def add_volume(df) -> pd.DataFrame:
 
 
 def normalize(text: str) -> str:
+    """Normalization function for the formatted UID column"""
     return (
         text.lower()
             .replace("(", "")
@@ -121,7 +54,7 @@ def normalize(text: str) -> str:
 
 def run() -> None:
     # Load raw data
-    df = load_raw_hevy_data()
+    df = load_raw_hevy_data_and_tranform_date_format(RAW_HEVY_CSV_PATH_RENAMED)
     
     # Add unique identifier column
     df = add_uid(df)
@@ -129,15 +62,25 @@ def run() -> None:
     # Add volume column
     df = add_volume(df)
     
-    # Keep only the columns we want in the master file
-    df = select_master_hevy_columns(df)
+    # Keep only the columns we want in the master file    
+    df = select_master_columns([
+        "uid",
+        "title",
+        "start_time",
+        "end_time",
+        "exercise_title",
+        "set_index",
+        "weight_kg",
+        "reps",
+        "volume"
+        ], df)
     
     # Load Hevy master data 
-    master_df = load_master_hevy_data(MASTER_HEVY_CSV_PATH)
+    master_df = load_master_data(MASTER_HEVY_CSV_PATH)
     
     # Append only new rows
-    updated_master = append_only_new_rows(master_df, df)
-    
+    updated_master = append_only_new_rows(master_df, df, key="uid")
+
     # Save
     save_master_data(updated_master, MASTER_HEVY_CSV_PATH)
     
