@@ -8,6 +8,8 @@ transform_data:
 	python3 -m transform.transform_nutrition
 ingest_data:
 	python3 -m ingest.google_sheets_ingest
+daily-summary:
+	python3 -m analysis.daily_summary
 install:
 	pip3 install -r requirements.txt
 clean:

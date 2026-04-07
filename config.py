@@ -44,7 +44,12 @@ GOOGLE_SHEETS_NUTRITION_GID: str = os.getenv("GOOGLE_SHEETS_NUTRITION_GID")
 LOGIN_URL: str = "https://hevy.com/login"
 EXPORT_URL: str = "https://hevy.com/settings?export"
 
-DEFAULT_TIMEOUT: int = 15
+DEFAULT_TIMEOUT: int = 15 
+
+OLLAMA_API: str = f"http://{os.getenv('AGENT_LOCAL_IP_ADDRESS')}:11434/api/generate" 
+OLLAMA_MODEL: str = "gemma3:1b"     # AI model to use for Ollama API requests (default is gemma3)      
+
+
 
 def get_credentials() -> tuple[str, str]:
     """Return Hevy credentials from environment variables."""
