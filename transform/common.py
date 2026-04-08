@@ -20,7 +20,7 @@ def load_raw_data_and_tranform_date_format(raw_csv_path: Path) -> pd.DataFrame:
         
     df["date"] = pd.to_datetime(df["date"])
     
-    df["date"] = df["date"].dt.strftime("%d/%m/%Y")
+    df["date"] = df["date"].dt.strftime("%Y-%m-%d")
         
     return df
 
