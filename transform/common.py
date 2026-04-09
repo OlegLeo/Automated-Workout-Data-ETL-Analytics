@@ -50,7 +50,7 @@ def load_master_data(path: Path) -> Path:
     if path.exists():
         df = pd.read_csv(path)
         if "date" in df.columns:
-            df["date"] = pd.to_datetime(df["date"], dayfirst=True).dt.strftime("%d/%m/%Y")
+            df["date"] = pd.to_datetime(df["date"], dayfirst=False).dt.strftime("%Y-%m-%d")
         logger.info(f"Loaded master file with {len(df)} rows: {path}")
         return df
     else:

@@ -45,3 +45,6 @@ downloads/
 
 # Jupyter notebooks checkpoints (if you ever add notebooks)
 .ipynb_checkpoints/
+
+# Analysis outputs 
+analysis/exercise_groups.json
