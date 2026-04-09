@@ -47,7 +47,7 @@ EXPORT_URL: str = "https://hevy.com/settings?export"
 DEFAULT_TIMEOUT: int = 15 
 
 OLLAMA_API: str = f"http://{os.getenv('AGENT_LOCAL_IP_ADDRESS')}:11434" 
-OLLAMA_MODEL: str = "llama3.1:70b"     # AI model to use for Ollama API requests      
+OLLAMA_MODEL: str = "mixtral:8x7b"     # AI model to use for Ollama API requests      
 
 GROUPED_EXERCISES_JSON_PATH: Path = ROOT_DIR / "data" / "exercises" / "grouped_exercises.json"
 
