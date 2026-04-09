@@ -46,7 +46,9 @@ downloads/
 # Jupyter notebooks checkpoints (if you ever add notebooks)
 .ipynb_checkpoints/
 
-# Workout exercises grouped JSON file by AI Agent
+# Workout exercises grouped files by AI Agent
 data/exercises/*.json
-data/weekly_summary/*csv
+
+data/weekly_summary/master_weekly_summary.csv
+
 

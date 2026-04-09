@@ -119,6 +119,19 @@ workout_analysis_project/
 │   ├── google_sheets_ingest.py
 │   └── __init__.py
 │
+├── analysis/
+│   ├── ai/
+│   │   ├── data_loader.py        # Loads master datasets for analysis
+│   │   ├── exercise_classifier.py# AI model for exercise → muscle group classification
+│   │   ├── ai_agent.py           # Orchestrates classification + updates exercise groups
+│   │   ├── prompt.py             # LLM prompt templates
+│   │   └── __init__.py
+│   │
+│   ├── exercise_groups.py        # Loads/validates grouped_exercises.json
+│   ├── weekly_volume.py          # Weekly volume computation logic
+│   ├── weekly_vol_summary.py     # CLI entrypoint for weekly volume summary
+│   └── __init__.py
+│
 ├── utils/
 │   ├── file_utils.py
 │   └── __init__.py
@@ -128,6 +141,7 @@ workout_analysis_project/
 ├── Makefile                      # Commands (scrape, transform, ingest, pipeline)
 ├── .gitignore
 └── README.md
+
 
 ```
 
@@ -155,10 +169,13 @@ workout_analysis_project/
 6. Run pipeline hevy scraper + transform
     `python3 -m ingest.google_sheets_ingest` OR `make ingest_data`
 
-7. Run pipeline hevy scraper + transform
+7. Run AI Agent to get the weekly volume by upper/lower body split
+    `python3 -m analysis.weekly_vol_summary.py` OR `make ai_weekly`
+
+8. Run pipeline hevy scraper + transform
     `python3 -m main` OR `make run`
 
-8. Clean local python cache
+9. Clean local python cache
     `make clean`
 
 --- 
