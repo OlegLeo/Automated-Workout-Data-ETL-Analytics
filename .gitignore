@@ -47,4 +47,4 @@ downloads/
 .ipynb_checkpoints/
 
 # Workout exercises grouped JSON file by AI Agent
-data/exercises/grouped_exercises.json
+data/exercises/*.json
