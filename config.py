@@ -29,11 +29,11 @@ MASTER_HEVY_CSV_PATH: Path = MASTER_CSV_FOLDER / "master_workouts.csv"
 RAW_GOOGLE_SHEETS_FOLDER: Path = ROOT_DIR / "data" / "raw" / "google_sheets"
 MASTER_GOOGLE_SHEETS_FOLDER: Path = ROOT_DIR / "data" / "master" / "google_sheets"
 
-RAW_NUTRITION_CSV_PATH = RAW_GOOGLE_SHEETS_FOLDER / "raw_nutrition.csv"
-RAW_WEIGHT_CSV_PATH = RAW_GOOGLE_SHEETS_FOLDER / "raw_weight.csv"
+RAW_NUTRITION_CSV_PATH: Path = RAW_GOOGLE_SHEETS_FOLDER / "raw_nutrition.csv"
+RAW_WEIGHT_CSV_PATH: Path = RAW_GOOGLE_SHEETS_FOLDER / "raw_weight.csv"
 
-MASTER_NUTRITION_CSV_PATH = MASTER_GOOGLE_SHEETS_FOLDER / "master_nutrition.csv"
-MASTER_WEIGHT_CSV_PATH = MASTER_GOOGLE_SHEETS_FOLDER / "master_weight.csv"
+MASTER_NUTRITION_CSV_PATH: Path = MASTER_GOOGLE_SHEETS_FOLDER / "master_nutrition.csv"
+MASTER_WEIGHT_CSV_PATH: Path = MASTER_GOOGLE_SHEETS_FOLDER / "master_weight.csv"
 
 GOOGLE_SHEETS_NUTRITION_ID: str = os.getenv("GOOGLE_SHEETS_NUTRITION_ID")
 GOOGLE_SHEETS_WEIGHT_ID: str = os.getenv("GOOGLE_SHEETS_WEIGHT_ID")
@@ -46,10 +46,10 @@ EXPORT_URL: str = "https://hevy.com/settings?export"
 
 DEFAULT_TIMEOUT: int = 15 
 
-OLLAMA_API: str = f"http://{os.getenv('AGENT_LOCAL_IP_ADDRESS')}:11434/api/generate" 
-OLLAMA_MODEL: str = "gemma3:1b"     # AI model to use for Ollama API requests (default is gemma3)      
+OLLAMA_API: str = f"http://{os.getenv('AGENT_LOCAL_IP_ADDRESS')}:11434" 
+OLLAMA_MODEL: str = "llama3.1:70b"     # AI model to use for Ollama API requests      
 
-
+GROUPED_EXERCISES_JSON_PATH: Path = ROOT_DIR / "data" / "exercises" / "grouped_exercises.json"
 
 def get_credentials() -> tuple[str, str]:
     """Return Hevy credentials from environment variables."""

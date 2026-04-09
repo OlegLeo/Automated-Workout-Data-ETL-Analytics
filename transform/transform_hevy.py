@@ -41,6 +41,13 @@ def add_volume(df) -> pd.DataFrame:
     
     return df
 
+def add_date(df) -> pd.DataFrame:
+    """
+    Add a date column:
+      - New date column formatted into ISO date from start_time column
+      """
+    df["date"] = pd.to_datetime(df["start_time"]).dt.strftime("%Y-%m-%d")
+    return df
 
 def normalize(text: str) -> str:
     """Normalization function for the formatted UID column"""
@@ -62,12 +69,16 @@ def run() -> None:
     # Add volume column
     df = add_volume(df)
     
+    # Add ISO date column
+    df = add_date(df)
+    
     # Keep only the columns we want in the master file    
     df = select_master_columns([
         "uid",
         "title",
         "start_time",
         "end_time",
+        "date",
         "exercise_title",
         "set_index",
         "weight_kg",
@@ -78,8 +89,12 @@ def run() -> None:
     # Load Hevy master data 
     master_df = load_master_data(MASTER_HEVY_CSV_PATH)
     
+    
     # Append only new rows
     updated_master = append_only_new_rows(master_df, df, key="uid")
+    
+    # Sort by start_time from older to latest date
+    updated_master = updated_master.sort_values(["start_time", "exercise_title"]) 
 
     # Save
     save_master_data(updated_master, MASTER_HEVY_CSV_PATH)
