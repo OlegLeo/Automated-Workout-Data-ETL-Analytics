@@ -5,7 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)   # Logger for this module.
 
-def update_groups_from_df(df):
+def update_groups_from_df(df) -> dict:
     """Update exercise groups from DataFrame using AI classification."""
     grouped_exercises = load_grouped_exercises()  # existing classifications
     unique_exercises = df["exercise_title"].unique()
@@ -24,7 +24,7 @@ def update_groups_from_df(df):
             grouped_exercises["upper"].append(exercise)
         elif "lower" in result:
             grouped_exercises["lower"].append(exercise)
-        else:
+        elif "unknown" in result:
             grouped_exercises["unknown"].append(exercise)
             
         logger.info(f"Classified: '{exercise}' as {result}.")
@@ -33,7 +33,7 @@ def update_groups_from_df(df):
     for exercise in new_exercises:
         result = classify_exercise(exercise)
         grouped_exercises[exercise] = result
-        print(f"Classifed: {exercise} -> {result}")
+        logger.info(f"Classifed: {exercise} -> {result}")
         
     save_grouped_exercises(grouped_exercises)
     return grouped_exercises

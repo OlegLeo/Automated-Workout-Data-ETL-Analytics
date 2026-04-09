@@ -1,7 +1,6 @@
 import pandas as pd
 from config import MASTER_HEVY_CSV_PATH
 
-
 def load_data() -> pd.DataFrame:
     """Load the data from master_workout csv file
         - date column used to group data into weekly

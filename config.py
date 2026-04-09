@@ -50,6 +50,7 @@ OLLAMA_API: str = f"http://{os.getenv('AGENT_LOCAL_IP_ADDRESS')}:11434"
 OLLAMA_MODEL: str = "mixtral:8x7b"     # AI model to use for Ollama API requests      
 
 GROUPED_EXERCISES_JSON_PATH: Path = ROOT_DIR / "data" / "exercises" / "grouped_exercises.json"
+WEEKLY_SUMMARY_CSV_PATH: Path = ROOT_DIR / "data" / "weekly_summary" / "master_weekly_summary.csv"
 
 def get_credentials() -> tuple[str, str]:
     """Return Hevy credentials from environment variables."""

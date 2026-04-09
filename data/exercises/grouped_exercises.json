@@ -1,0 +1,26 @@
+{
+    "upper": [
+        "Face Pull",
+        "Pull Up",
+        "Rear Delt Reverse Fly (Dumbbell)",
+        "Reverse Wrist Curl",
+        "Bicep Curl (Dumbbell)",
+        "Incline Bench Press (Dumbbell)",
+        "Lateral Raise (Dumbbell)",
+        "Triceps Rope Pushdown",
+        "Seated Palms Up Wrist Curl",
+        "Shrug (Dumbbell)"
+    ],
+    "lower": [
+        "Bulgarian Split Squat",
+        "Front Squat",
+        "Romanian Deadlift (Dumbbell)",
+        "Standing Calf Raise (Dumbbell)",
+        "Goblet Squat",
+        "Leg Extension (Machine)",
+        "Seated Leg Curl (Machine)",
+        "Standing Cable Glute Kickbacks",
+        "Shrug (Dumbbell)"
+    ],
+    "unknown": []
+}

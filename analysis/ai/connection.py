@@ -13,5 +13,4 @@ def ask_ai(messages: list[dict]) -> str:
     messages=messages,  # Prompt
     stream=False        # Streaming or not? (default False). If set to True the chat will be returned in real time. Default is false and it's recommended when we want a live conversation with your bot
   )
-  print(response)
   return response

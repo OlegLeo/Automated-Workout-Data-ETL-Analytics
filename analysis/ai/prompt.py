@@ -1,13 +1,24 @@
-def ai_prompt(exercise: str) -> str:
-    """Return a valid Ollama chat message list."""
-    
+def ai_prompt(exercise: str):
     return [
         {
             "role": "user",
             "content": (
-                f"Based on the exercise name, respond with one word either its working specifically upper or lower body: {exercise}"
-                "'upper', 'lower', or 'unknown'."
+                "You are a strict classifier.\n"
+                "Respond with EXACTLY one word from this list:\n"
+                "upper\n"
+                "lower\n"
+                "unknown\n\n"
+                "Rules:\n"
+                "- Output must be exactly one of those words.\n"
+                "- No punctuation.\n"
+                "- No explanations.\n"
+                "- No explanation or additonal notes.\n"
+                "- No sentences.\n"
+                "- No extra words.\n"
+                "- No quotes.\n"
+                "- No parentheses.\n\n"
+                f"Exercise: {exercise}\n"
+                "Output:"
             )
         }
     ]
-    
