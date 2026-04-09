@@ -48,3 +48,5 @@ downloads/
 
 # Workout exercises grouped JSON file by AI Agent
 data/exercises/*.json
+data/weekly_summary/*csv
+
