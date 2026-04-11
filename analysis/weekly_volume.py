@@ -8,8 +8,8 @@ def compute_weekly_volume(df: pd.DataFrame, groups: dict) -> pd.DataFrame:
     df["date"] = df["date"].dt.normalize()
 
     # Week boundaries (Sun–Sat → start Monday)
-    df["week_start"] = df["date"].dt.to_period("W-SAT").dt.start_time
-    df["week_end"]   = df["date"].dt.to_period("W-SAT").dt.end_time
+    df["week_start"] = df["date"].dt.to_period("W-FRI").dt.start_time
+    df["week_end"]   = df["date"].dt.to_period("W-FRI").dt.end_time
 
     # Map exercise → group
     df["group"] = df["exercise_title"].apply(lambda ex: map_grouped_exercises(ex, groups))
